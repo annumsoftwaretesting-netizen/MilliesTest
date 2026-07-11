@@ -1,18 +1,20 @@
 from selenium.webdriver.common.by import By
- 
- 
+
+
 class LoginLocators:
- 
+
+    # the login inputs have no id attributes; the site exposes
+    # cy-* test hooks on them instead
     EMAIL = (
-        By.ID,
-        "email"
+        By.CSS_SELECTOR,
+        "input[cy-loginmailinput]"
     )
- 
+
     PASSWORD = (
-        By.ID,
-        "password"
+        By.CSS_SELECTOR,
+        "input[cy-loginpasswordinput]"
     )
- 
+
     LOGIN_BUTTON = (
         By.CSS_SELECTOR,
         "button[type='submit']"
