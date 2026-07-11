@@ -1,20 +1,9 @@
-from selenium.webdriver.common.by import By
- 
 from pages.base_page import BasePage
- 
- 
+from locators.checkout_locators import CheckoutLocators
+
+
 class CheckoutPage(BasePage):
- 
-    FIRST_NAME = (By.ID, "firstName")
-    LAST_NAME = (By.ID, "lastName")
-    ADDRESS = (By.ID, "address")
-    POSTCODE = (By.ID, "postcode")
- 
-    CONTINUE = (
-        By.CSS_SELECTOR,
-        ".continue-button"
-    )
- 
+
     def enter_details(
         self,
         first,
@@ -22,28 +11,27 @@ class CheckoutPage(BasePage):
         address,
         postcode
     ):
- 
+
         self.enter_text(
-            self.FIRST_NAME,
+            CheckoutLocators.FIRST_NAME,
             first
         )
- 
+
         self.enter_text(
-            self.LAST_NAME,
+            CheckoutLocators.LAST_NAME,
             last
         )
- 
+
         self.enter_text(
-            self.ADDRESS,
+            CheckoutLocators.ADDRESS,
             address
         )
- 
+
         self.enter_text(
-            self.POSTCODE,
+            CheckoutLocators.POSTCODE,
             postcode
         )
- 
+
         self.click(
-            self.CONTINUE
+            CheckoutLocators.CONTINUE
         )
- 

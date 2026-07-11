@@ -1,52 +1,31 @@
-from selenium.webdriver.common.by import By
- 
 from pages.base_page import BasePage
- 
- 
+from locators.payment_locators import PaymentLocators
+
+
 class PaymentPage(BasePage):
- 
-    CARD_NUMBER = (
-        By.ID,
-        "cardNumber"
-    )
- 
-    EXPIRY = (
-        By.ID,
-        "expiry"
-    )
- 
-    CVV = (
-        By.ID,
-        "cvv"
-    )
- 
-    PAY_BUTTON = (
-        By.ID,
-        "pay-now"
-    )
- 
+
     def pay(
         self,
         card,
         expiry,
         cvv
     ):
- 
+
         self.enter_text(
-            self.CARD_NUMBER,
+            PaymentLocators.CARD_NUMBER,
             card
         )
- 
+
         self.enter_text(
-            self.EXPIRY,
+            PaymentLocators.EXPIRY,
             expiry
         )
- 
+
         self.enter_text(
-            self.CVV,
+            PaymentLocators.CVV,
             cvv
         )
- 
+
         self.click(
-            self.PAY_BUTTON
+            PaymentLocators.PAY_BUTTON
         )

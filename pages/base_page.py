@@ -1,3 +1,4 @@
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
@@ -51,9 +52,12 @@ class BasePage:
         ).text
  
     def is_visible(self, locator):
-        return self.wait.until(
-            EC.visibility_of_element_located(locator)
-        ).is_displayed()
+        try:
+            return self.wait.until(
+                EC.visibility_of_element_located(locator)
+            ).is_displayed()
+        except TimeoutException:
+            return False
  
     def scroll_into_view(self, locator):
         element = self.wait.until(

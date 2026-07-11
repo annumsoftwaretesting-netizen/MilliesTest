@@ -1,55 +1,64 @@
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
- 
- 
+
+from utilities.logger import get_logger
+
+
 class CookieBannerComponent:
- 
+
+    ACCEPT_BUTTON = (
+        By.ID,
+        "onetrust-accept-btn-handler"
+    )
+
+    POLICY_TEXT = (
+        By.ID,
+        "onetrust-policy-text"
+    )
+
+    log = get_logger(__name__)
+
     def __init__(self, driver):
         self.driver = driver
- 
+
     def accept_cookies(self):
- 
+
         try:
- 
-            print("Waiting for cookie banner...")
- 
+
+            self.log.info("Waiting for cookie banner...")
+
             accept_btn = WebDriverWait(
                 self.driver,
                 10
             ).until(
                 EC.presence_of_element_located(
-                    (
-                        By.ID,
-                        "onetrust-accept-btn-handler"
-                    )
+                    self.ACCEPT_BUTTON
                 )
             )
- 
-            print("Cookie banner found")
- 
+
+            self.log.info("Cookie banner found")
+
             self.driver.execute_script(
                 "arguments[0].click();",
                 accept_btn
             )
- 
-            print("Cookie banner clicked")
- 
+
+            self.log.info("Cookie banner clicked")
+
             WebDriverWait(
                 self.driver,
                 10
             ).until(
                 EC.invisibility_of_element_located(
-                    (
-                        By.ID,
-                        "onetrust-policy-text"
-                    )
+                    self.POLICY_TEXT
                 )
             )
- 
-            print("Cookie banner disappeared")
- 
-        except Exception as e:
-            print(
-                f"Cookie banner error: {e}"
+
+            self.log.info("Cookie banner disappeared")
+
+        except TimeoutException:
+            self.log.info(
+                "Cookie banner not shown, continuing"
             )
