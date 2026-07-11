@@ -8,9 +8,10 @@ class ProductLocators:
         "//button[contains(.,'Customise')]"
     )
  
+    # the site renders <swatch> custom elements, not a .swatch class
     COOKIE_SWATCH = (
         By.CSS_SELECTOR,
-        ".swatch"
+        "swatch"
     )
  
     SINGLE_COOKIE = (
