@@ -17,7 +17,7 @@ def test_end_to_end_purchase(driver, test_user):
     driver.get(
         Environment.get_authenticated_url()
         +
-        "/account/login"
+        "/login"
     )
 
     CookieBannerComponent(driver).accept_cookies()
