@@ -1,6 +1,7 @@
 from utilities.environment import Environment
 
 from pages.product_page import ProductPage
+from pages.basket_page import BasketPage
 
 from components.cookie_banner_component import (
     CookieBannerComponent
@@ -18,15 +19,17 @@ def test_add_item(driver):
     CookieBannerComponent(driver).accept_cookies()
 
     product = ProductPage(driver)
-    
+
     product.click_customise()
 
     product.wait_for_page_load()
-
-    print(driver.current_url)
 
     product.select_cookie_type()
 
     product.select_single_cookie()
 
     product.add_to_bag()
+
+    basket_count = BasketPage(driver).get_basket_count()
+
+    assert basket_count.strip() not in ("", "0")

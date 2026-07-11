@@ -10,7 +10,7 @@ class ProductLocators:
  
     COOKIE_SWATCH = (
         By.CSS_SELECTOR,
-        "swatch"
+        ".swatch"
     )
  
     SINGLE_COOKIE = (
